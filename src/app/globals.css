@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* @media (prefers-color-scheme: dark) {
+  :root {
+    --background: #2d2d2d;
+    --foreground: #ededed;
+  }
+} */
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  scroll-behavior: smooth;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 2));
+  }
+}
+
+.animate-scroll {
+  animation: scroll 30s linear infinite;
+}
+
+@keyframes scroll-reverse {
+  0% {
+    transform: translateX(calc(-100% / 2));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-scroll-reverse {
+  animation: scroll-reverse 40s linear infinite;
+}
+
+.primary-color {
+  background-color: #9e2834;
+}
+
+.primary-text-color {
+  color: #9e2834;
+}
+
+.secondary-color {
+  background-color: #f3f3f3;
+}
+.tertiary-color {
+  background-color: #00796b!important;
+}
+
+.text-tertiary-color {
+  color: #00796b;
+}
+
+.text-color-black {
+  color: #212121;
+}
+.text-color-white {
+  color: #fefefe;
+}
+.bg-color-yellow {
+  background-color: #f5c518;
+}
+/* 
+* {
+color: #9e2834;
+color: #f3f3f3;
+color: #00796b;
+color: #212121;
+color: #fefefe;
+color: #f5c518;
+} */
+/* 
+#9e2834  Color del logo (protagonista
+#f3f3f3 Fondo claro limpio (blanco grisáceo)
+#00796b Verde oscuro (relacionado a la limpieza, ecológico y fresco)
+#212121 Negro grisáceo, ideal para textos
+#fefefe Blanco puro para zonas limpias (background general)
+#f5c518 Amarillo suave, útil para resaltar acciones (botones, alertas)
+
+*/
