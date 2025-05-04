@@ -8,7 +8,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Grid, List, SlidersHorizontal } from "lucide-react"
 import { products } from "@/utils/productsMockup"
 
-// Sample product data - replace with your actual products
 // const products = [
 //   {
 //     id: 1,

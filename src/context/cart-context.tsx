@@ -8,6 +8,10 @@ export type CartItem = {
   price: number
   image: string
   quantity: number
+  priceSelected: {
+    price: number
+    title: string
+  }
 }
 
 type CartContextType = {
@@ -46,7 +50,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     // Only save after initial load to prevent overwriting with empty cart
     if (isLoaded) {
       localStorage.setItem("shopping-cart", JSON.stringify(items))
-    }
+    } 
   }, [items, isLoaded])
 
   const addItem = (newItem: Omit<CartItem, "quantity">) => {

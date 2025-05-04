@@ -66,7 +66,8 @@ export const products = [
         image: "/products/neutral_soap.jpg?height=300&width=300",
         priceDetail: [{
             price: 20,
-            amount: 1
+            amount: 1,
+            stock: 10
         }],
         inStock: true,
         featured: true,
@@ -123,7 +124,8 @@ export const products = [
         image: "/products/shampoo_familia.jpg?height=300&width=300",
         priceDetail: [{
             price: 25,
-            amount: 0.5
+            amount: 0.5,
+            stock: 10
         }],
         inStock: true,
         featured: true,
@@ -180,7 +182,8 @@ export const products = [
         image: "/products/gato_1.jpg?height=300&width=300",
         priceDetail: [{
             price: 20,
-            amount: 1
+            amount: 1,
+            stock: 10
         }],
         inStock: true,
         featured: true,
@@ -238,7 +241,8 @@ export const products = [
         priceDetail: [
             {
                 price: 25,
-                amount: 1
+                amount: 1,
+                stock: 10
             }
         ],
         inStock: true,
@@ -297,7 +301,8 @@ export const products = [
         priceDetail: [
             {
                 price: 15,
-                amount: 0.25
+                amount: 0.25,
+                stock: 10
             }
         ],
         inStock: true,
@@ -356,7 +361,8 @@ export const products = [
         priceDetail: [
             {
                 price: 15,
-                amount: 1
+                amount: 1,
+                stock: 10
             }
         ],
         inStock: true,
@@ -415,7 +421,8 @@ export const products = [
         priceDetail: [
             {
                 price: 35,
-                amount: 1
+                amount: 1,
+                stock: 1
             }
         ],
         inStock: true,
@@ -474,7 +481,8 @@ export const products = [
         priceDetail: [
             {
                 price: 10,
-                amount: 1
+                amount: 1,
+                stock: 2
             }
         ],
         inStock: true,
@@ -533,7 +541,8 @@ export const products = [
         priceDetail: [
             {
                 price: 30,
-                amount: 1
+                amount: 1,
+                stock: 4
             }
         ],
         inStock: true,
@@ -592,7 +601,8 @@ export const products = [
         priceDetail: [
             {
                 price: 40,
-                amount: 4
+                amount: 4,
+                stock: 4
             }
         ],
         inStock: true,
@@ -651,7 +661,8 @@ export const products = [
         priceDetail: [
             {
                 price: 20,
-                amount: 0.5
+                amount: 0.5,
+                stock: 14
             }
         ],
         inStock: true,
@@ -700,7 +711,7 @@ export const products = [
       },
     },
     {
-        id: 14,
+        id: 13,
         name: "Sacasarro RTU",
         category: "cleaning",
         categoryName: "Limpieza",
@@ -710,7 +721,8 @@ export const products = [
         priceDetail: [
             {
                 price: 20,
-                amount: 1
+                amount: 1,
+                stock: 4
             }
         ],
         inStock: true,
@@ -759,7 +771,7 @@ export const products = [
       },
     },
     {
-        id: 15,
+        id: 14,
         name: "Ropa blanca",
         category: "living",
         categoryName: "Ropa",
@@ -769,7 +781,8 @@ export const products = [
         priceDetail: [
             {
                 price: 50,
-                amount: 4
+                amount: 4,
+                stock: 5
             }
         ],
         inStock: true,
@@ -818,7 +831,7 @@ export const products = [
       },
     },
     {
-        id: 16,
+        id: 15,
         name: "Ropa color",
         category: "living",
         categoryName: "Ropa",
@@ -828,7 +841,8 @@ export const products = [
         priceDetail: [
             {
                 price: 50,
-                amount: 4
+                amount: 4,
+                stock: 5
             }
         ],
         inStock: true,
@@ -877,7 +891,7 @@ export const products = [
       },
     },
     {
-        id: 17,
+        id: 16,
         name: "Gel Hidroalcohol",
         category: "desinfeccion",
         categoryName: "Desinfección",

@@ -69,7 +69,7 @@ export default function ProductFilters({ categories, selectedCategory, setSelect
               onCheckedChange={(checked) => setInStockOnly(checked as boolean)}
             />
             <Label htmlFor="in-stock" className="text-sm font-normal cursor-pointer">
-              In Stock Only
+              En stock
             </Label>
           </div>
           <div className="flex items-center space-x-2">
@@ -79,7 +79,7 @@ export default function ProductFilters({ categories, selectedCategory, setSelect
               onCheckedChange={(checked) => setFeaturedOnly(checked as boolean)}
             />
             <Label htmlFor="featured" className="text-sm font-normal cursor-pointer">
-              Featured Products
+              Productos relacionados
             </Label>
           </div>
         </div>

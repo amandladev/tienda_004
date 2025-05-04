@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Image from "next/image"
 import Link from "next/link"
 import { Menu, X, ChevronDown } from "lucide-react"
 import LoginModal from "../modal/Login"
@@ -42,11 +43,16 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="flex items-center">
-              {/* Replace with your actual logo */}
-              <div className="h-10 w-10 bg-primary rounded-full flex items-center justify-center mr-3">
+              {/* <div className="h-10 w-10 bg-primary rounded-full flex items-center justify-center mr-3">
                 <span className="text-primary-foreground font-bold text-lg">L</span>
               </div>
-              <span className="text-gray-800 font-medium text-xl tracking-tight">Logo</span>
+              <span className="text-gray-800 font-medium text-xl tracking-tight">Logo</span> */}
+              <Image 
+                src="/logo.jpeg"
+                alt="Logo"
+                width={100}
+                height={100}
+              />
             </Link>
           </div>
 
@@ -123,7 +129,7 @@ export default function Navbar() {
           </div>
 
           <div className="hidden md:flex items-center space-x-4">
-            {/* <CartDropdown /> */}
+            <CartDropdown />
             <div className="flex space-x-2">
               <LoginModal />
               <RegisterModal />
@@ -132,7 +138,7 @@ export default function Navbar() {
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-4">
-            {/* <CartDropdown /> */}
+            <CartDropdown />
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-700 hover:text-primary hover:bg-gray-100 transition-colors duration-200 focus:outline-none"

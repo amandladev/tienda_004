@@ -70,7 +70,7 @@ export default function CartDropdown() {
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="text-sm font-medium text-gray-900 truncate">{item.name}</p>
-                        <p className="text-sm text-gray-500">{formatPrice(item.price)}</p>
+                        <p className="text-sm text-gray-500">{formatPrice(item.priceSelected.price)}</p>
                       </div>
                       <div className="flex flex-col items-end space-y-2">
                         <div className="flex items-center border border-gray-300 rounded">
@@ -96,7 +96,7 @@ export default function CartDropdown() {
                           aria-label="Remove item"
                         >
                           <Trash2 className="h-3 w-3 mr-1" />
-                          Remove
+                          Eliminar
                         </button>
                       </div>
                     </div>
@@ -121,7 +121,7 @@ export default function CartDropdown() {
               </Link>
                 <Link href="/cart" passHref>
                   <Button variant="outline" className="w-full" onClick={() => setIsOpen(false)}>
-                    View Cart
+                    Ver carrito
                   </Button>
                 </Link>
               </div>
