@@ -16,6 +16,14 @@ import Navbar from "@/components/ui/navbar/Navbar"
 import Image from "next/image"
 import Link from "next/link"
 
+const peruData = {
+  "Lima": ["Lima Metropolitana", "Huaral", "Cañete"],
+  "Cusco": ["Cusco", "Urubamba", "Calca"],
+  "Arequipa": ["Arequipa", "Camana", "Caylloma"],
+  "La Libertad": ["Trujillo", "Chepén", "Otuzco"],
+  // Agrega más según lo necesites
+};
+
 // Define checkout steps
 const CHECKOUT_STEPS = [
   { id: "information", label: "Información" },
@@ -64,6 +72,7 @@ export default function CheckoutPage() {
   const [isProcessing, setIsProcessing] = useState(false)
   const [orderComplete, setOrderComplete] = useState(false)
   const [orderNumber, setOrderNumber] = useState("")
+  const [provinceOptions, setProvinceOptions] = useState<string[]>([]);
 
   // Form state
   const [formData, setFormData] = useState({
@@ -75,7 +84,7 @@ export default function CheckoutPage() {
     city: "",
     state: "",
     zipCode: "",
-    country: "United States",
+    country: "Perú",
     phone: "",
     sameAsBilling: true,
     saveInfo: false,
@@ -87,7 +96,7 @@ export default function CheckoutPage() {
     billingCity: "",
     billingState: "",
     billingZipCode: "",
-    billingCountry: "United States",
+    billingCountry: "Perú",
   })
 
   // Form validation
@@ -221,6 +230,18 @@ export default function CheckoutPage() {
     }
   }
 
+  const handleInputCityChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+  
+    if (name === "city") {
+      const provinces = peruData[value as keyof typeof peruData] || [];
+      setProvinceOptions(provinces);
+      setFormData(prev => ({ ...prev, city: value, state: "" }));
+    } else {
+      setFormData(prev => ({ ...prev, [name]: value }));
+    }
+  };
+
   // Handle card number input
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formattedValue = formatCardNumber(e.target.value)
@@ -274,7 +295,7 @@ export default function CheckoutPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 mt-16">
           <div className="text-center py-16">
             <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-gray-900 mx-auto"></div>
-            <h2 className="mt-4 text-xl font-medium text-gray-700">Loading your cart...</h2>
+            <h2 className="mt-4 text-xl font-medium text-gray-700">Cargando el carrito...</h2>
           </div>
         </div>
       </>
@@ -361,7 +382,7 @@ export default function CheckoutPage() {
                   <h2 className="text-lg font-medium text-gray-900">Información de envio</h2>
                   <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
                     <div>
-                      <Label htmlFor="firstName">First name</Label>
+                      <Label htmlFor="firstName">Nombres</Label>
                       <Input
                         type="text"
                         id="firstName"
@@ -374,7 +395,7 @@ export default function CheckoutPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="lastName">Last name</Label>
+                      <Label htmlFor="lastName">Apellidos</Label>
                       <Input
                         type="text"
                         id="lastName"
@@ -387,7 +408,7 @@ export default function CheckoutPage() {
                     </div>
 
                     <div className="sm:col-span-2">
-                      <Label htmlFor="address">Address</Label>
+                      <Label htmlFor="address">Dirección</Label>
                       <Input
                         type="text"
                         id="address"
@@ -400,7 +421,7 @@ export default function CheckoutPage() {
                     </div>
 
                     <div className="sm:col-span-2">
-                      <Label htmlFor="apartment">Apartment, suite, etc. (optional)</Label>
+                      <Label htmlFor="apartment">Referencia</Label>
                       <Input
                         type="text"
                         id="apartment"
@@ -412,33 +433,55 @@ export default function CheckoutPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="city">City</Label>
-                      <Input
-                        type="text"
+                      <Label htmlFor="city">Ciudad</Label>
+                      <select
                         id="city"
                         name="city"
                         value={formData.city}
-                        onChange={handleInputChange}
-                        className={`mt-1 ${errors.city ? "border-red-500" : ""}`}
-                      />
+                        onChange={handleInputCityChange}
+                        className={`mt-1 w-full border p-2 rounded ${errors.city ? "border-red-500" : ""}`}
+                      >
+                        <option value="">Selecciona una ciudad</option>
+                        {Object.keys(peruData).map((city) => (
+                          <option key={city} value={city}>{city}</option>
+                        ))}
+                      </select>
                       {errors.city && <p className="mt-1 text-sm text-red-500">{errors.city}</p>}
                     </div>
 
                     <div>
-                      <Label htmlFor="state">State / Province</Label>
-                      <Input
-                        type="text"
+                      <Label htmlFor="state">Provincia</Label>
+                      <select
                         id="state"
                         name="state"
                         value={formData.state}
-                        onChange={handleInputChange}
-                        className={`mt-1 ${errors.state ? "border-red-500" : ""}`}
-                      />
+                        onChange={handleInputCityChange}
+                        className={`mt-1 w-full border p-2 rounded ${errors.state ? "border-red-500" : ""}`}
+                        disabled={!formData.city}
+                      >
+                        <option value="">Selecciona una provincia</option>
+                        {provinceOptions.map((provincia) => (
+                          <option key={provincia} value={provincia}>{provincia}</option>
+                        ))}
+                      </select>
                       {errors.state && <p className="mt-1 text-sm text-red-500">{errors.state}</p>}
                     </div>
 
+                    <div className="">
+                      <Label htmlFor="phone">Teléfono</Label>
+                      <Input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className={`mt-1 ${errors.phone ? "border-red-500" : ""}`}
+                      />
+                      {errors.phone && <p className="mt-1 text-sm text-red-500">{errors.phone}</p>}
+                    </div>
+                    
                     <div>
-                      <Label htmlFor="zipCode">ZIP / Postal code</Label>
+                      <Label htmlFor="zipCode">Código postal</Label>
                       <Input
                         type="text"
                         id="zipCode"
@@ -450,7 +493,7 @@ export default function CheckoutPage() {
                       {errors.zipCode && <p className="mt-1 text-sm text-red-500">{errors.zipCode}</p>}
                     </div>
 
-                    <div>
+                    {/* <div>
                       <Label htmlFor="country">Country</Label>
                       <select
                         id="country"
@@ -463,20 +506,9 @@ export default function CheckoutPage() {
                         <option>Canada</option>
                         <option>Mexico</option>
                       </select>
-                    </div>
+                    </div> */}
 
-                    <div className="sm:col-span-2">
-                      <Label htmlFor="phone">Phone</Label>
-                      <Input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleInputChange}
-                        className={`mt-1 ${errors.phone ? "border-red-500" : ""}`}
-                      />
-                      {errors.phone && <p className="mt-1 text-sm text-red-500">{errors.phone}</p>}
-                    </div>
+                   
                   </div>
                 </div>
 

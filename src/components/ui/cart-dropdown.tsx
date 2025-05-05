@@ -112,7 +112,7 @@ export default function CartDropdown() {
                 <span className="font-medium">Subtotal</span>
                 <span className="font-medium">{formatPrice(subtotal)}</span>
               </div>
-              <p className="text-xs text-gray-500 mb-4">Shipping and taxes calculated at checkout</p>
+              <p className="text-xs text-gray-500 mb-4">El costo de envío sera calculado en el checkout</p>
               <div className="space-y-2">
               <Link href="/checkout" passHref>
                 <Button className="w-full" onClick={() => setIsOpen(false)}>

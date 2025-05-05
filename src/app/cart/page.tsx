@@ -73,10 +73,10 @@ export default function CartPage() {
                         <div className="flex justify-between">
                           <h3 className="text-lg font-medium text-gray-900">{item.name}</h3>
                           <p className="text-lg font-medium text-gray-900">
-                            {formatPrice(item.price * item.quantity)}
+                            {formatPrice(item.priceSelected.price * item.quantity)}
                           </p>
                         </div>
-                        <p className="mt-1 text-sm text-gray-500">Price: {formatPrice(item.price)}</p>
+                        <p className="mt-1 text-sm text-gray-500">Price: {formatPrice(item.priceSelected.price)}</p>
                         
                         <div className="mt-4 flex justify-between items-center">
                           <div className="flex items-center border border-gray-300 rounded">
@@ -116,12 +116,12 @@ export default function CartPage() {
                 <Link href="/store">
                   <Button variant="outline">
                     <ArrowLeft className="mr-2 h-4 w-4" />
-                    Continue Shopping
+                    Continuar comprando
                   </Button>
                 </Link>
                 
                 <Button variant="outline" onClick={clearCart} className="text-red-500 hover:text-red-700">
-                  Clear Cart
+                  Limpiar carrito
                 </Button>
               </div>
             </div>
@@ -146,9 +146,9 @@ export default function CartPage() {
                   )}
                   
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Envio</span>
+                    <span className="text-gray-600">Envío</span>
                     <span className="text-gray-900">
-                      {shipping === 0 ? 'Free' : formatPrice(shipping)}
+                      {shipping === 0 ? 'Gratis' : formatPrice(shipping)}
                     </span>
                   </div>
                   
@@ -157,14 +157,14 @@ export default function CartPage() {
                       <span className="text-gray-900">Total</span>
                       <span className="text-gray-900">{formatPrice(total)}</span>
                     </div>
-                    <p className="mt-1 text-xs text-gray-500">
+                    {/* <p className="mt-1 text-xs text-gray-500">
                       Impuestos
-                    </p>
+                    </p> */}
                   </div>
                 </div>
                 
                 <div className="mt-6">
-                  <div className="flex space-x-2 mb-4">
+                  {/* <div className="flex space-x-2 mb-4">
                     <Input
                       placeholder="Promo code"
                       value={promoCode}
@@ -178,7 +178,7 @@ export default function CartPage() {
                     >
                       Aplicar
                     </Button>
-                  </div>
+                  </div> */}
                   
                   {promoApplied && (
                     <div className="mb-4 text-sm text-green-600">
