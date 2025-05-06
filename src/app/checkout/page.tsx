@@ -15,14 +15,8 @@ import { ShoppingBag, CreditCardIcon, CheckCircle2, ArrowLeft, ArrowRight } from
 import Navbar from "@/components/ui/navbar/Navbar"
 import Image from "next/image"
 import Link from "next/link"
+import { peruData } from "@/commons/departaments-data"
 
-const peruData = {
-  "Lima": ["Lima Metropolitana", "Huaral", "Cañete"],
-  "Cusco": ["Cusco", "Urubamba", "Calca"],
-  "Arequipa": ["Arequipa", "Camana", "Caylloma"],
-  "La Libertad": ["Trujillo", "Chepén", "Otuzco"],
-  // Agrega más según lo necesites
-};
 
 // Define checkout steps
 const CHECKOUT_STEPS = [
@@ -32,11 +26,10 @@ const CHECKOUT_STEPS = [
   { id: "confirmation", label: "Confirmación" },
 ]
 
-// Shipping methods
 const SHIPPING_METHODS = [
-  { id: "standard", label: "Standard Shipping", price: 5.99, deliveryTime: "3-5 business days" },
-  { id: "express", label: "Express Shipping", price: 12.99, deliveryTime: "1-2 business days" },
-  { id: "overnight", label: "Overnight Shipping", price: 24.99, deliveryTime: "Next business day" },
+  { id: "standard", label: "Envío gratuito", price: 0.00, deliveryTime: "Solo en Lima, compras mayores a 100 soles" },
+  { id: "express", label: "Envío estandar", price: 15.00, deliveryTime: "Solo en Lima" },
+  { id: "overnight", label: "Envío provincias", price: 0.00, deliveryTime: "El costo de la empresa courier debe ser pagado por el cliente" },
 ]
 
 // Payment methods
@@ -99,11 +92,38 @@ export default function CheckoutPage() {
     billingCountry: "Perú",
   })
 
-  // Form validation
+
   const [errors, setErrors] = useState<Record<string, string>>({})
 
-  // Calculate totals
-  const shippingCost = SHIPPING_METHODS.find((method) => method.id === shippingMethod)?.price || 0
+  const calculateShippingCost = () => {
+    let costs = 0
+    if (subtotal > 100 && formData.state === "Lima") {
+      // setShippingMethod(SHIPPING_METHODS[0].id)
+      costs = 0
+    } else if (formData.state !== "Lima") {
+      // setShippingMethod(SHIPPING_METHODS[2].id)
+    }
+    else {
+      // setShippingMethod(SHIPPING_METHODS[1].id)
+      costs = 15.00
+    }
+    return costs
+  }
+
+  useEffect(() => {
+    if (currentStep === "shipping") {
+      if (subtotal > 100 && formData.state === "Lima") {
+        setShippingMethod(SHIPPING_METHODS[0].id)
+      } else if (formData.state !== "Lima") {
+        setShippingMethod(SHIPPING_METHODS[2].id)
+      }  else {
+        setShippingMethod(SHIPPING_METHODS[1].id)
+      }   
+    }
+  }, [currentStep])
+
+  // const shippingCost = SHIPPING_METHODS.find((method) => method.id === shippingMethod)?.price || 0
+  const shippingCost = calculateShippingCost()
   const tax = subtotal * 0.07 // 7% tax rate
   const total = subtotal + shippingCost + tax
 
@@ -125,7 +145,6 @@ export default function CheckoutPage() {
     }
   }
 
-  // Validate current step
   const validateStep = () => {
     const newErrors: Record<string, string> = {}
 
@@ -136,25 +155,25 @@ export default function CheckoutPage() {
       if (!formData.firstName) newErrors.firstName = "Complete su nombre"
       if (!formData.lastName) newErrors.lastName = "Complete sus apellidos"
       if (!formData.address) newErrors.address = "Address es requerido"
-      if (!formData.city) newErrors.city = "City es requerido"
-      if (!formData.state) newErrors.state = "State es requerido"
-      if (!formData.zipCode) newErrors.zipCode = "ZIP code es requerido"
-      if (!formData.phone) newErrors.phone = "Phone number es requerido"
+      if (!formData.city) newErrors.city = "El departamento es requerido"
+      if (!formData.state) newErrors.state = "La provincia es requerida"
+      if (!formData.zipCode) newErrors.zipCode = "Código postal es requerido"
+      if (!formData.phone) newErrors.phone = "Número de télefono es requerido"
     } else if (currentStep === "payment") {
-      if (!formData.cardNumber) newErrors.cardNumber = "Card number es requerido"
+      if (!formData.cardNumber) newErrors.cardNumber = "Número de tarjeta es requerido"
       else if (!/^\d{16}$/.test(formData.cardNumber.replace(/\s/g, "")))
-        newErrors.cardNumber = "Card number must be 16 digits"
+        newErrors.cardNumber = "Número de tarjeta debe tener 16 dígitos"
 
-      if (!formData.cardName) newErrors.cardName = "Name on card es requerido"
+      if (!formData.cardName) newErrors.cardName = "Número de tarjeta es requerido"
 
-      if (!formData.expiryDate) newErrors.expiryDate = "Expiry date es requerido"
-      else if (!/^\d{2}\/\d{2}$/.test(formData.expiryDate)) newErrors.expiryDate = "Expiry date must be in MM/YY format"
+      if (!formData.expiryDate) newErrors.expiryDate = "Fecha de expiración es requerido"
+      else if (!/^\d{2}\/\d{2}$/.test(formData.expiryDate)) newErrors.expiryDate = "La fecha de expiración debe estar en MM/YY"
 
       if (!formData.cvv) newErrors.cvv = "CVV es requerido"
-      else if (!/^\d{3,4}$/.test(formData.cvv)) newErrors.cvv = "CVV must be 3 or 4 digits"
+      else if (!/^\d{3,4}$/.test(formData.cvv)) newErrors.cvv = "CVV debe tener 3 o 4 dígitos"
 
       if (!formData.sameAsBilling) {
-        if (!formData.billingAddress) newErrors.billingAddress = "Billing address es requerido"
+        if (!formData.billingAddress) newErrors.billingAddress = "Dirección de facturación es requerido"
         if (!formData.billingCity) newErrors.billingCity = "Billing city es requerido"
         if (!formData.billingState) newErrors.billingState = "Billing state es requerido"
         if (!formData.billingZipCode) newErrors.billingZipCode = "Billing ZIP code es requerido"
@@ -165,7 +184,6 @@ export default function CheckoutPage() {
     return Object.keys(newErrors).length === 0
   }
 
-  // Handle next step
   const handleNextStep = () => {
     if (!validateStep()) return
 
@@ -176,7 +194,6 @@ export default function CheckoutPage() {
     }
   }
 
-  // Handle previous step
   const handlePreviousStep = () => {
     const currentIndex = CHECKOUT_STEPS.findIndex((step) => step.id === currentStep)
     if (currentIndex > 0) {
@@ -185,7 +202,6 @@ export default function CheckoutPage() {
     }
   }
 
-  // Handle place order
   const handlePlaceOrder = async () => {
     if (!validateStep()) return
 
@@ -232,7 +248,7 @@ export default function CheckoutPage() {
 
   const handleInputCityChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
-  
+
     if (name === "city") {
       const provinces = peruData[value as keyof typeof peruData] || [];
       setProvinceOptions(provinces);
@@ -241,8 +257,7 @@ export default function CheckoutPage() {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
   };
- 
-  // Handle card number input
+
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formattedValue = formatCardNumber(e.target.value)
     setFormData((prev) => ({ ...prev, cardNumber: formattedValue }))
@@ -256,7 +271,6 @@ export default function CheckoutPage() {
     }
   }
 
-  // Check if cart is empty
   useEffect(() => {
     // Only redirect if the cart is empty AND we've confirmed the cart has loaded
     if (items.length === 0 && !orderComplete && isLoaded) {
@@ -433,7 +447,7 @@ export default function CheckoutPage() {
                     </div>
 
                     <div>
-                      <Label htmlFor="city">Ciudad</Label>
+                      <Label htmlFor="city">Departamento</Label>
                       <select
                         id="city"
                         name="city"
@@ -479,7 +493,7 @@ export default function CheckoutPage() {
                       />
                       {errors.phone && <p className="mt-1 text-sm text-red-500">{errors.phone}</p>}
                     </div>
-                    
+
                     <div>
                       <Label htmlFor="zipCode">Código postal</Label>
                       <Input
@@ -508,7 +522,7 @@ export default function CheckoutPage() {
                       </select>
                     </div> */}
 
-                   
+
                   </div>
                 </div>
 
@@ -537,14 +551,14 @@ export default function CheckoutPage() {
             {currentStep === "shipping" && (
               <div className="space-y-6">
                 <div>
-                  <h2 className="text-lg font-medium text-gray-900">Shipping method</h2>
+                  <h2 className="text-lg font-medium text-gray-900">Costo de envío</h2>
                   <div className="mt-4 space-y-4">
                     <RadioGroup value={shippingMethod} onValueChange={setShippingMethod}>
                       {SHIPPING_METHODS.map((method) => (
                         <div key={method.id} className="flex items-center justify-between border rounded-md p-4">
                           <div className="flex items-center">
-                            <RadioGroupItem value={method.id} id={method.id} />
-                            <Label htmlFor={method.id} className="ml-3 cursor-pointer">
+                            <RadioGroupItem value={method.id} id={method.id}  disabled/>
+                            <Label htmlFor={method.id} className="ml-3">
                               <div>
                                 <span className="font-medium text-gray-900">{method.label}</span>
                                 <p className="text-sm text-gray-500">{method.deliveryTime}</p>
@@ -575,7 +589,7 @@ export default function CheckoutPage() {
             {currentStep === "payment" && (
               <div className="space-y-6">
                 <div>
-                  <h2 className="text-lg font-medium text-gray-900">Payment method</h2>
+                  <h2 className="text-lg font-medium text-gray-900">Método de pago</h2>
                   <div className="mt-4 space-y-4">
                     <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod}>
                       {PAYMENT_METHODS.map((method) => (
@@ -593,10 +607,10 @@ export default function CheckoutPage() {
 
                 {paymentMethod === "credit-card" && (
                   <div>
-                    <h3 className="text-lg font-medium text-gray-900">Card details</h3>
+                    <h3 className="text-lg font-medium text-gray-900">Detalles de la tarjeta</h3>
                     <div className="mt-4 grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-x-4">
                       <div className="sm:col-span-2">
-                        <Label htmlFor="cardNumber">Card number</Label>
+                        <Label htmlFor="cardNumber">Número de tarjeta</Label>
                         <Input
                           type="text"
                           id="cardNumber"
@@ -611,7 +625,7 @@ export default function CheckoutPage() {
                       </div>
 
                       <div className="sm:col-span-2">
-                        <Label htmlFor="cardName">Name on card</Label>
+                        <Label htmlFor="cardName">Nombre en la tarjeta</Label>
                         <Input
                           type="text"
                           id="cardName"
@@ -625,7 +639,7 @@ export default function CheckoutPage() {
                       </div>
 
                       <div>
-                        <Label htmlFor="expiryDate">Expiry date (MM/YY)</Label>
+                        <Label htmlFor="expiryDate">Fecha de expiración (MM/YY)</Label>
                         <Input
                           type="text"
                           id="expiryDate"
@@ -747,7 +761,7 @@ export default function CheckoutPage() {
                 <div className="flex justify-between">
                   <Button variant="outline" onClick={handlePreviousStep}>
                     <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back to shipping
+                    Volver a comprar
                   </Button>
                   <Button onClick={handlePlaceOrder} disabled={isProcessing}>
                     {isProcessing ? (
@@ -772,10 +786,10 @@ export default function CheckoutPage() {
                             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                           ></path>
                         </svg>
-                        Processing...
+                        Procesando...
                       </>
                     ) : (
-                      "Place order"
+                      "Procesar"
                     )}
                   </Button>
                 </div>
@@ -788,12 +802,12 @@ export default function CheckoutPage() {
                 <div className="rounded-full bg-green-100 p-3 mx-auto w-16 h-16 flex items-center justify-center">
                   <CheckCircle2 className="h-8 w-8 text-green-600" />
                 </div>
-                <h2 className="mt-6 text-2xl font-medium text-gray-900">Thank you for your order!</h2>
-                <p className="mt-2 text-gray-500">Your order #{orderNumber} has been placed successfully.</p>
+                <h2 className="mt-6 text-2xl font-medium text-gray-900">¡Gracias por su compra!</h2>
+                <p className="mt-2 text-gray-500">Su orden de número #{orderNumber} ha sido recibida satisfactoriamente.</p>
                 <p className="mt-1 text-gray-500">Le hemos enviado un correo {formData.email}.</p>
                 <div className="mt-8">
                   <Link href="/">
-                    <Button>Continue shopping</Button>
+                    <Button>Continuar comprando</Button>
                   </Link>
                 </div>
               </div>
@@ -820,7 +834,7 @@ export default function CheckoutPage() {
                         <div>
                           <div className="flex justify-between text-base font-medium text-gray-900">
                             <h3>{item.name}</h3>
-                            <p className="ml-4">{formatPrice(item.price * item.quantity)}</p>
+                            <p className="ml-4">{formatPrice(item.priceSelected.price * item.quantity)}</p>
                           </div>
                         </div>
                         <div className="flex flex-1 items-end justify-between text-sm">
@@ -840,7 +854,7 @@ export default function CheckoutPage() {
 
                 {currentStep !== "information" && (
                   <div className="flex items-center justify-between">
-                    <div className="text-sm text-gray-600">Shipping</div>
+                    <div className="text-sm text-gray-600">Costo de Envío</div>
                     <div className="text-base font-medium text-gray-900">{formatPrice(shippingCost)}</div>
                   </div>
                 )}

@@ -27,7 +27,7 @@ export default function AddToCartButton({
   const [isAdded, setIsAdded] = useState(false)
 
   const handleAddToCart = () => {
-    addItem(product)
+    addItem(product as any)
 
     // Show success state
     setIsAdded(true)
