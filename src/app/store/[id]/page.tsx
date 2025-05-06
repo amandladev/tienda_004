@@ -10,23 +10,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useCart } from "@/context/cart-context"
 import ShareButton from "@/components/cart/share-button"
 import { products } from "@/utils/productsMockup"
-
+import { PriceDetail, ProductCardProps } from "@/commons/product-interface"
 // This would normally come from a database or API
 
 export default function ProductDetailPage() {
   const [product, setProduct] = useState(products[0])
   const [quantity, setQuantity] = useState(1)
   const { addItem } = useCart()
-  const handleAddToCart = () => {
-    // Add the product to cart with the selected quantity
-    for (let i = 0; i < quantity; i++) {
-      addItem({
-        id: product.id.toString(),
-        name: product.name,
-        price: product.priceDetail[0].price,
-        image: product.images[0],
-      })
-    }
+  const [priceSelected, setPriceSelected] = useState<PriceDetail>(product.priceDetail[0])
+
+  const addCartItem = (product: any) => {
+    const newProductToCart = { ...product, priceSelected: priceSelected }
+    addItem(newProductToCart as any)
   }
 
   useEffect(() => {
@@ -168,7 +163,7 @@ export default function ProductDetailPage() {
 
               {/* Add to Cart */}
               <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                <Button onClick={handleAddToCart} className="flex-1" size="lg">
+                <Button onClick={() => addCartItem(product)} className="flex-1" size="lg">
                   <ShoppingCart className="h-5 w-5 mr-2" />
                   Agregar al carrito
                 </Button>
