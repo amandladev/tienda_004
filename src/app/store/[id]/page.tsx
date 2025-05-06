@@ -65,11 +65,9 @@ export default function ProductDetailPage() {
         </div>
       </div>
 
-      {/* Product Detail */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-lg shadow-sm overflow-hidden">
           <div className="grid md:grid-cols-2 gap-8 p-6 lg:p-8">
-            {/* Product Images */}
             <div className="space-y-4">
               <div className="aspect-square relative rounded-lg overflow-hidden border bg-gray-100">
                 <Image
@@ -80,7 +78,6 @@ export default function ProductDetailPage() {
                 />
               </div>
 
-              {/* Thumbnail Images */}
               <div className="grid grid-cols-4 gap-2">
                 {product.images.map((image, index) => (
                   <div
@@ -191,7 +188,6 @@ export default function ProductDetailPage() {
                 />
               </div>
 
-              {/* Product Details */}
               <div className="border-t pt-6 mt-auto">
                 <Tabs defaultValue="details">
                   <TabsList className="grid w-full grid-cols-3">
@@ -230,7 +226,6 @@ export default function ProductDetailPage() {
           </div>
         </div>
 
-        {/* Related Products */}
         <div className="mt-12">
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-light text-gray-900">Productos relacionados</h2>
@@ -248,7 +243,7 @@ export default function ProductDetailPage() {
             {product.relatedProducts.map((relatedProduct) => (
               <Link
                 key={relatedProduct.id}
-                href={`/products/${relatedProduct.id}`}
+                href={`/store/${relatedProduct.id}`}
                 className="group bg-white rounded-lg border overflow-hidden shadow-sm hover:shadow-md transition-shadow"
               >
                 <div className="aspect-square relative overflow-hidden bg-gray-100">

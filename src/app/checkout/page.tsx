@@ -241,7 +241,7 @@ export default function CheckoutPage() {
       setFormData(prev => ({ ...prev, [name]: value }));
     }
   };
-
+ 
   // Handle card number input
   const handleCardNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const formattedValue = formatCardNumber(e.target.value)

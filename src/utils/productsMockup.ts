@@ -31,35 +31,35 @@ export const products = [
         relatedProducts: [
             {
               id: 3,
-              name: "Glass & Window Cleaner",
-              price: 9.99,
-              image: "/limpieza/limpieza_6.jpg?height=300&width=300",
+              name: "Shampoo Professional Line",
+              price: 25.00,
+              image: "/products/shampoo_familia.jpg?height=300&width=300",
             },
             {
-              id: 5,
-              name: "Bathroom Cleaner",
-              price: 11.99,
-              image: "/limpieza/limpieza_5.jpg?height=300&width=300",
+              id: 4,
+              name: "Shampoo Pets Royal",
+              price: 20.00,
+              image: "/products/gato_1.jpg?height=300&width=300",
             },
             {
               id: 8,
-              name: "Disinfectant Spray",
-              price: 8.99,
-              image: "/limpieza/limpieza_7.jpg?height=300&width=300",
+              name: "Shampoo Pets Antipulgas",
+              price: 25.00,
+              image: "/products/perro_1.jpg?height=300&width=300",
             },
             {
-              id: 11,
-              name: "Oven & Grill Cleaner",
-              price: 15.99,
-              image: "/limpieza/limpieza_8.jpg?height=300&width=300",
-            },
+              id: 2,
+              name: "Jabón Neutro",
+              price: 20.00,
+              image: "/products/neutral_soap.jpg?height=300&width=300",
+            }
         ],
         reviewCount: 127
     },
     {
         id: 2,
         name: "Jabón Neutro",
-        category: "cleaning",
+        category: "personalCare",
         categoryName: "Cuidado Personal",
         description: "Jabón profesional sin olor ni color para manos en cocina",
         features: ["No streaks", "Anti-fog", "Long-lasting"],
@@ -74,30 +74,30 @@ export const products = [
         rating: 4.5,
         size: ["1"],
         relatedProducts: [
-            {
-              id: 3,
-              name: "Glass & Window Cleaner",
-              price: 9.99,
-              image: "/limpieza/limpieza_6.jpg?height=300&width=300",
-            },
-            {
-              id: 5,
-              name: "Bathroom Cleaner",
-              price: 11.99,
-              image: "/limpieza/limpieza_5.jpg?height=300&width=300",
-            },
-            {
-              id: 8,
-              name: "Disinfectant Spray",
-              price: 8.99,
-              image: "/limpieza/limpieza_7.jpg?height=300&width=300",
-            },
-            {
-              id: 11,
-              name: "Oven & Grill Cleaner",
-              price: 15.99,
-              image: "/limpieza/limpieza_8.jpg?height=300&width=300",
-            },
+          {
+            id: 1,
+            name: "Jabón Líquido",
+            price: 10.00,
+            image: "/products/liquid_soap.jpg?height=300&width=300",
+          },
+          {
+            id: 3,
+            name: "Shampoo Professional Line",
+            price: 25.00,
+            image: "/products/shampoo_familia.jpg?height=300&width=300",
+          },
+          {
+            id: 4,
+            name: "Shampoo Pets Royal",
+            price: 20.00,
+            image: "/products/gato_1.jpg?height=300&width=300",
+          },
+          {
+            id: 5,
+            name: "Shampoo Pets Antipulgas",
+            price: 20.00,
+            image: "/products/perro_1.jpg?height=300&width=300",
+          }
         ],
         reviewCount: 127,
         images: [
@@ -132,30 +132,30 @@ export const products = [
         rating: 4.5,
         size: ["0.5"],
         relatedProducts: [
-            {
-              id: 3,
-              name: "Glass & Window Cleaner",
-              price: 9.99,
-              image: "/limpieza/limpieza_6.jpg?height=300&width=300",
-            },
-            {
-              id: 5,
-              name: "Bathroom Cleaner",
-              price: 11.99,
-              image: "/limpieza/limpieza_5.jpg?height=300&width=300",
-            },
-            {
-              id: 8,
-              name: "Disinfectant Spray",
-              price: 8.99,
-              image: "/limpieza/limpieza_7.jpg?height=300&width=300",
-            },
-            {
-              id: 11,
-              name: "Oven & Grill Cleaner",
-              price: 15.99,
-              image: "/limpieza/limpieza_8.jpg?height=300&width=300",
-            },
+          {
+            id: 2,
+            name: "Jabón Neutro",
+            price: 20.00,
+            image: "/products/neutral_soap.jpg?height=300&width=300",
+          },
+          {
+            id: 1,
+            name: "Jabón Líquido",
+            price: 10.00,
+            image: "/products/liquid_soap.jpg?height=300&width=300",
+          },
+          {
+            id: 4,
+            name: "Shampoo Pets Royal",
+            price: 20.00,
+            image: "/products/gato_1.jpg?height=300&width=300",
+          },
+          {
+            id: 5,
+            name: "Shampoo Pets Antipulgas",
+            price: 20.00,
+            image: "/products/perro_1.jpg?height=300&width=300",
+          }
         ],
         reviewCount: 127,
         images: [
@@ -190,30 +190,30 @@ export const products = [
         rating: 4.5,
         size: ["1"],
         relatedProducts: [
-            {
-              id: 3,
-              name: "Glass & Window Cleaner",
-              price: 9.99,
-              image: "/limpieza/limpieza_6.jpg?height=300&width=300",
-            },
-            {
-              id: 5,
-              name: "Bathroom Cleaner",
-              price: 11.99,
-              image: "/limpieza/limpieza_5.jpg?height=300&width=300",
-            },
-            {
-              id: 8,
-              name: "Disinfectant Spray",
-              price: 8.99,
-              image: "/limpieza/limpieza_7.jpg?height=300&width=300",
-            },
-            {
-              id: 11,
-              name: "Oven & Grill Cleaner",
-              price: 15.99,
-              image: "/limpieza/limpieza_8.jpg?height=300&width=300",
-            },
+          {
+            id: 2,
+            name: "Jabón Neutro",
+            price: 20.00,
+            image: "/products/neutral_soap.jpg?height=300&width=300",
+          },
+          {
+            id: 1,
+            name: "Jabón Líquido",
+            price: 10.00,
+            image: "/products/liquid_soap.jpg?height=300&width=300",
+          },
+          {
+            id: 3,
+            name: "Shampoo Professional Line",
+            price: 25.00,
+            image: "/products/shampoo_familia.jpg?height=300&width=300",
+          },
+          {
+            id: 5,
+            name: "Shampoo Pets Antipulgas",
+            price: 20.00,
+            image: "/products/perro_1.jpg?height=300&width=300",
+          }
         ],
         reviewCount: 127,
         images: [
@@ -250,30 +250,30 @@ export const products = [
         rating: 4.5,
         size: ["1"],
         relatedProducts: [
-            {
-              id: 3,
-              name: "Glass & Window Cleaner",
-              price: 9.99,
-              image: "/limpieza/limpieza_6.jpg?height=300&width=300",
-            },
-            {
-              id: 5,
-              name: "Bathroom Cleaner",
-              price: 11.99,
-              image: "/limpieza/limpieza_5.jpg?height=300&width=300",
-            },
-            {
-              id: 8,
-              name: "Disinfectant Spray",
-              price: 8.99,
-              image: "/limpieza/limpieza_7.jpg?height=300&width=300",
-            },
-            {
-              id: 11,
-              name: "Oven & Grill Cleaner",
-              price: 15.99,
-              image: "/limpieza/limpieza_8.jpg?height=300&width=300",
-            },
+          {
+            id: 1,
+            name: "Jabón Líquido",
+            price: 10.00,
+            image: "/products/liquid_soap.jpg?height=300&width=300",
+          },
+          {
+            id: 3,
+            name: "Shampoo Professional Line",
+            price: 25.00,
+            image: "/products/shampoo_familia.jpg?height=300&width=300",
+          },
+          {
+            id: 4,
+            name: "Shampoo Pets Royal",
+            price: 20.00,
+            image: "/products/gato_1.jpg?height=300&width=300",
+          },
+          {
+            id: 2,
+            name: "Jabón Neutro",
+            price: 20.00,
+            image: "/products/neutral_soap.jpg?height=300&width=300",
+          },
         ],
         reviewCount: 127,
         images: [

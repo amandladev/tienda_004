@@ -13,17 +13,34 @@ export default function ProductCard({ product, viewMode }: ProductCardProps) {
   const { id, name, description, image, rating, inStock, featured, priceDetail } = product
   const [priceSelected, setPriceSelected] = useState<PriceDetail>(priceDetail[0])
 
-  const addCartItem = (product : any) => {
+  const addCartItem = (product: any) => {
     const newProductToCart = { ...product, priceSelected: priceSelected }
     addItem(newProductToCart as any)
   }
-  // Grid View
   if (viewMode === "grid") {
     return (
       <div className="group bg-white rounded-lg border overflow-hidden shadow-sm hover:shadow-md transition-shadow">
         {/* Product Image */}
         <Link href={`/store/${id}`} className="block relative">
           <div className="aspect-square relative overflow-hidden bg-gray-100">
+            <div style={{
+              backgroundImage: `url(${image})`,
+              backgroundSize: "contain",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+              width: "100%",
+              height: "100%",
+              position: "absolute",
+              top: "0",
+              left: "0",
+              right: "0",
+              bottom: "0",
+              filter: "blur(10px)",
+              zIndex: "0",
+              opacity: "0.5",
+            }}>
+
+            </div>
             <Image
               src={image || "/placeholder.svg"}
               alt={name}
@@ -32,7 +49,6 @@ export default function ProductCard({ product, viewMode }: ProductCardProps) {
             />
           </div>
 
-          {/* Badges */}
           <div className="absolute top-2 left-2 flex flex-col gap-1">
             {featured && <Badge className="bg-gray-600 hover:bg-gray-700">Nuevo</Badge>}
             {!inStock && <Badge variant="destructive">Sin Stock</Badge>}
@@ -62,7 +78,7 @@ export default function ProductCard({ product, viewMode }: ProductCardProps) {
                 <label key={index} className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="radio"
-                    name="priceOption"
+                    name={`priceOption-${id}`} // Asegura un grupo único por producto
                     value={detail.amount}
                     checked={priceSelected.amount === detail.amount}
                     onChange={() => setPriceSelected(detail)}
@@ -83,22 +99,28 @@ export default function ProductCard({ product, viewMode }: ProductCardProps) {
       </div>
     )
   }
-  // <input
-  //   type="radio"
-  //   id={`price-${id}`}
-  //   name="price"
-  //   value={priceSelected?.price}
-  //   checked={priceSelected?.price === priceSelected?.price}
-  //   onChange={() => setPriceSelected(priceSelected)}
-  // />
-  // <label htmlFor={`price-${id}`} className="ms-3 cursor-pointer">
-  //   S/ {priceSelected?.price.toFixed(2)} - {priceSelected?.amount} KG
-  // </label>
-  // List View
   return (
     <div className="group flex flex-col sm:flex-row gap-4 bg-white rounded-lg border overflow-hidden shadow-sm hover:shadow-md transition-shadow p-4">
       <Link href={`/store/${id}`} className="block relative">
-        <div className="aspect-square w-full sm:w-40 h-40 relative overflow-hidden bg-gray-100 rounded-md">
+        <div className="aspect-square w-full sm:w-40 h-40 relative overflow-hidden rounded-md">
+          <div style={{
+            backgroundImage: `url(${image})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+            width: "100%",
+            height: "100%",
+            position: "absolute",
+            top: "0",
+            left: "0",
+            right: "0",
+            bottom: "0",
+            filter: "blur(2px)",
+            zIndex: "0",
+            opacity: "0.5",
+          }}>
+
+          </div>
           <Image
             src={image || "/placeholder.svg"}
             alt={name}
@@ -133,9 +155,19 @@ export default function ProductCard({ product, viewMode }: ProductCardProps) {
         <div className="flex items-center justify-between mt-auto">
           <div className="text-sm md:text-md font-extrabold text-greenNew">
             {priceDetail.map((detail, index) => (
-              <div key={index}>
-                S/ {detail.price.toFixed(2)} - {detail.amount} KG
-              </div>
+              <label key={index} className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="radio"
+                  name={`priceOption-${id}`} // Asegura un grupo único por producto
+                  value={detail.amount}
+                  checked={priceSelected.amount === detail.amount}
+                  onChange={() => setPriceSelected(detail)}
+                  className="accent-blue-600"
+                />
+                <span>
+                  S/ {detail.price.toFixed(2)} - {detail.amount} KG
+                </span>
+              </label>
             ))}
           </div>
           <Button disabled={!inStock} onClick={() => addCartItem(product)}>
